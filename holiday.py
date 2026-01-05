@@ -1,9 +1,12 @@
-options = ["Istanbul", "Paris", "Bangkok"]
+options = ["1 = Istanbul", "2 = Paris", "3 = Bangkok"]
 print(options)
-while True:
-    city_flight = input("Select holiday destination from options provided {options}: ")
 
-    if city_flight in options:
+options_int = [1, 2, 3]
+
+while True:
+    city_flight = int(input("Select holiday destination from options provided {options_int}: "))
+
+    if city_flight in options_int:
         print(f"Holiday destination: {city_flight}")
         break
     else:
@@ -12,44 +15,30 @@ while True:
 num_nights = int(input("Number of nights staying at hotel: "))
 rental_days = int(input("How many days will be hiring a car: "))
 
-def hotel_cost(pricehotel = 2400, nights = num_nights):
- totalhotel = pricehotel * nights
- print(f"Total cost of hotel: {totalhotel}")
-multiply_hotel = hotel_cost()
+def hotel_cost(num_nights):
+     return num_nights * 2400
 
-if city_flight == "Istanbul":
+if city_flight == "1":
    
-    def plane_cost(city_flight = 12000, two_flights = 2):
-            total_flights_istanbul = city_flight * two_flights
-            print(f"Total cost of flights to Istanbul: {total_flights_istanbul}")
-    multiply_flights = plane_cost()
+    def plane_cost(city_flight):
+            city_flight = 12000
+            return city_flight * 2
 
-elif city_flight == "Paris":
-    def plane_cost(city_flight = 14500, two_flights = 2):
-            total_flights_paris = city_flight * two_flights
-            print(f"Total cost of flights to Paris: {total_flights_paris}")
-    multiply_flights = plane_cost()
+elif city_flight == "2":
+    def plane_cost(city_flight):
+            city_flight = 14500
+            return city_flight * 2            
 
 else:
-     def plane_cost(city_flight = 10500, two_flights = 2):
-            total_flights_bangkok = city_flight * two_flights
-            print(f"Total cost of flights to Bangkok: {total_flights_bangkok}")
-multiply_flights = plane_cost()
+     def plane_cost(city_flight):
+            city_flight = 10500
+            return city_flight * 2
 
-def car_rental(price_rental = 750, rental = rental_days):
- total_rental = price_rental * rental
- print(f"Total cost of rental car: {total_rental}")
-multiply_rental = car_rental()
+def car_rental(rental_days):
+    return 750 * rental_days
 
 def holiday_cost(num_nights, city_flight, rental_days):
-    total_holiday = num_nights + city_flight + rental_days
-    return (description + str(total_holiday))
+    return hotel_cost(num_nights) + plane_cost(city_flight) + car_rental(rental_days)
 
-hotel_cost
-plane_cost
-car_rental
-description = "Total cost of holiday: "
-
-sum = holiday_cost(hotel_cost, plane_cost, car_rental)
-
-print(sum)
+total_cost = holiday_cost(num_nights, city_flight, rental_days)
+print(f"Total cost of holiday: {total_cost}")
