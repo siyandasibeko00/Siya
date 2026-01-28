@@ -26,8 +26,10 @@ def read_shoes_data():
                 strip_lines = lines.strip() #removes whitespaces
                 strip_lines = strip_lines.split(", ") #turns string into a list
 
-            shoes_list.append(Shoes(strip_lines[0], strip_lines[1], strip_lines[2], strip_lines[3], strip_lines[4])) #add lines into empty list
-
+                if len(strip_lines) == 5:
+                    shoes_list.append(Shoes(strip_lines[0], strip_lines[1], strip_lines[2], strip_lines[3], strip_lines[4])) #add lines into empty list
+                else:
+                    print("Criteria not met. Try again")
     except FileNotFoundError:
         print('File "inventory.txt" does not exist')
 
@@ -36,15 +38,20 @@ def capture_shoes():
     print("Create your shoe")
     while True: #iterates until required condition is met/true
         try:
-            country = input("Enter the country: ")
-            code = input("Enter the code: ")
-            product = input("Enter the name of the product: ")
-            cost = float(input("Enter the cost: "))
-            quantity = int(input("Enter the quantity: "))
+            more_items = input("Do you want to create new item (Yes/No): ")
+            if more_items == "No":
+                break
+            else:
+                country = input("Enter the country: ")
+                code = input("Enter the code: ")
+                product = input("Enter the name of the product: ")
+                cost = float(input("Enter the cost: "))
+                quantity = int(input("Enter the quantity: "))
 
-            new_shoe = Shoes(country, code, product, cost, quantity) # create new shoe object
-            shoes_list.append(new_shoe) #add the shoe created by the user to the list
-            print(f"Successfully added new shoe: {new_shoe}")
+                new_shoe = Shoes(country, code, product, cost, quantity) # create new shoe object
+                shoes_list.append(new_shoe) #add the shoe created by the user to the list
+                print(f"Successfully added new shoe: {new_shoe}")
+
         except ValueError:
             print("Invalid entry. Please try again.")
         
@@ -57,14 +64,12 @@ def view_all():
             print(shoe)
 view_all() #call the function
 
-def re_stock():
-    # 1. Find the shoe with the lowest quantity
+def re_stock(): #Find the shoe with the lowest quantity
     lowest_quantity = min(shoes_list, key=lambda shoe: shoe.quantity) #function to return the minimum /smallest item in a list
 
     print(f"Re-stock Item:")
     print(f"Shoe: {lowest_quantity.code} ({lowest_quantity.product}), Current Qty: {lowest_quantity.quantity}") #print the code, product name and quantity of the item with lowest quantity
 
-    # 3. Ask for Confirmation
     confirm = input("Add more stock for this item? (yes/no): ")
 
     if confirm == 'yes':
@@ -80,6 +85,8 @@ def update_file(): #code to update existing inventory file
         f.write("Country,Code,Product,Cost,Quantity")
         for shoe in shoes_list:
             f.write(f"{shoe.country},{shoe.code},{shoe.product},{shoe.cost},{shoe.quantity}")
+
+update_file()
 
 def search_shoe(): 
 
@@ -117,8 +124,10 @@ def mainmenu(): #menu printed for the user to select numerical options
     print("7. Shoe for sale")
     print("8. Quit")
 
+mainmenu()
+
 while True:
-    option = input("Enter your option on menu: ")
+    option = int(input("Enter your option on menu: "))
     if option == 1:
         read_shoes_data()
     elif option == 2:
@@ -136,4 +145,3 @@ while True:
     else:
         break
 
-mainmenu()  
