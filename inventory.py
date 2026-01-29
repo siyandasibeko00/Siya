@@ -116,33 +116,33 @@ def highest_qty():
           f"{highest_qty_shoe.product}, Quantity: {highest_qty_shoe.quantity}")
 
 def mainmenu(): #menu printed for the user to select numerical options
-    print("1. Select file to read from")
-    print("2. Create your shoe")
-    print("3. See created shoe")
-    print("4. Add number of shoes")
-    print("5. Search for shoe")
-    print("6. Get total value of item")
-    print("7. Shoe for sale")
-    print("8. Quit")
+    while True:
+        print("1. Select file to read from")
+        print("2. Create your shoe")
+        print("3. See created shoe")
+        print("4. Add number of shoes")
+        print("5. Search for shoe")
+        print("6. Get total value of item")
+        print("7. Shoe for sale")
+        print("8. Quit")
 
-    mainmenu()
+        option = int(input("Enter your option on menu: "))
+        if option == 1:
+            read_shoes_data()
+        elif option == 2:
+            capture_shoes()
+        elif option == 3:
+            view_all()
+        elif option == 4:
+            re_stock()
+        elif option == 5:
+            print(search_shoe())
+        elif option == 6:
+            value_per_item()
+        elif option == 7:
+            highest_qty()
+            break
+        else:
+            print("Invalid entry. Please select between 1 - 7.")
 
-while True:
-    option = int(input("Enter your option on menu: "))
-    if option == 1:
-        read_shoes_data()
-    elif option == 2:
-        capture_shoes()
-    elif option == 3:
-        view_all()
-    elif option == 4:
-        re_stock()
-    elif option == 5:
-        print(search_shoe())
-    elif option == 6:
-        value_per_item()
-    elif option == 7:
-        highest_qty()
-    else:
-        break
-
+mainmenu()
