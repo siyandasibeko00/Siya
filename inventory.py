@@ -23,7 +23,7 @@ def read_shoes_data():
         with open ("inventory.txt", "r") as file:
             lines = file.readlines() #read lines from inventory text file into new file
             for line in lines [1:]: #iterate through lines by starting from the second element and skipping the heading
-                strip_lines = lines.strip() #removes whitespaces
+                strip_lines = line.strip() #removes whitespaces
                 strip_lines = strip_lines.split(", ") #turns string into a list
 
                 if len(strip_lines) == 5:
@@ -76,17 +76,18 @@ def re_stock(): #Find the shoe with the lowest quantity
             add_amount = int(input(f"How many pairs to add to {lowest_quantity.code}? "))
 
             lowest_quantity.quantity += add_amount
+
+            update_file()
+            
             print(f"Item added to stock. New quantity: {lowest_quantity.quantity}") #if yes entered then new stock is loaded to the existing list and print 
     else:
         print("Restock cancelled for this item.") #if no is entered then no new stock is loaded on the list
 
 def update_file(): #code to update existing inventory file
     with open("inventory.txt", "w+") as f:
-        f.write("Country,Code,Product,Cost,Quantity")
+        f.write("Country,Code,Product,Cost,Quantity\n")
         for shoe in shoes_list:
-            f.write(f"{shoe.country},{shoe.code},{shoe.product},{shoe.cost},{shoe.quantity}")
-
-update_file()
+            f.write(f"{shoe.country},{shoe.code},{shoe.product},{shoe.cost},{shoe.quantity}\n")
 
 def search_shoe(): 
 
@@ -124,7 +125,7 @@ def mainmenu(): #menu printed for the user to select numerical options
     print("7. Shoe for sale")
     print("8. Quit")
 
-mainmenu()
+    mainmenu()
 
 while True:
     option = int(input("Enter your option on menu: "))
@@ -137,7 +138,7 @@ while True:
     elif option == 4:
         re_stock()
     elif option == 5:
-        search_shoe()
+        print(search_shoe())
     elif option == 6:
         value_per_item()
     elif option == 7:
