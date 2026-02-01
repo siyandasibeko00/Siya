@@ -23,8 +23,8 @@ def read_shoes_data():
         with open ("inventory.txt", "r") as file:
             lines = file.readlines() #read lines from inventory text file into new file
             for line in lines [1:]: #iterate through lines by starting from the second element and skipping the heading
-                strip_lines = line.strip() #removes whitespaces
-                strip_lines = strip_lines.split(", ") #turns string into a list
+                strip_lines = line.strip(',') #removes whitespaces
+                strip_lines = strip_lines.split(",") #turns string into a list
 
                 if len(strip_lines) == 5:
                     shoes_list.append(Shoes(strip_lines[0], strip_lines[1], strip_lines[2], strip_lines[3], strip_lines[4])) #add lines into empty list
@@ -62,7 +62,6 @@ def view_all():
     else:
         for shoe in shoes_list: #if the shoes is in the list print details of the shoe
             print(shoe)
-view_all() #call the function
 
 def re_stock(): #Find the shoe with the lowest quantity
     lowest_quantity = min(shoes_list, key=lambda shoe: shoe.quantity) #function to return the minimum /smallest item in a list
@@ -70,9 +69,9 @@ def re_stock(): #Find the shoe with the lowest quantity
     print(f"Re-stock Item:")
     print(f"Shoe: {lowest_quantity.code} ({lowest_quantity.product}), Current Qty: {lowest_quantity.quantity}") #print the code, product name and quantity of the item with lowest quantity
 
-    confirm = input("Add more stock for this item? (yes/no): ")
+    confirm = input("Add more stock for this item? (Yes/No): ")
 
-    if confirm == 'yes':
+    if confirm == "Yes":
             add_amount = int(input(f"How many pairs to add to {lowest_quantity.code}? "))
 
             lowest_quantity.quantity += add_amount
@@ -97,7 +96,7 @@ def search_shoe():
         if shoe.code == search_code:
             return shoe
     else: #if code not in list then nothing is returned
-        return None
+        return "Shoe not found. Please try again."
 
 def value_per_item(): 
 
@@ -141,8 +140,7 @@ def mainmenu(): #menu printed for the user to select numerical options
             value_per_item()
         elif option == 7:
             highest_qty()
-            break
         else:
-            print("Invalid entry. Please select between 1 - 7.")
+            print("Invalid entry. Please select between 1 - 8.")
 
 mainmenu()
